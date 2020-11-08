@@ -1,0 +1,368 @@
+﻿<local:BasePage 
+      x:TypeArguments="local:TrackerViewModel"
+      x:Class="SurfaceGatingDIBH.TrackerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:local="clr-namespace:SurfaceGatingDIBH"
+      mc:Ignorable="d" 
+      x:Name="Page"
+      Background="Transparent"
+      d:DesignHeight="650" d:DesignWidth="1000"
+      Title="TrackerPage">
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <!--Upper Content-->
+                <RowDefinition Height="2*"/>
+                <!--Bottom Content-->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Upper Content-->
+            <Grid Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <!--Tracker Info-->
+                        <ColumnDefinition Width="400"/>
+                        <!--Tracker Graph-->
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--Tracker Info-->
+                    <Border>
+                        <Grid  Margin="20 0 0 0">
+                            <Grid.RowDefinitions>
+                                <!--Button Switch-->
+                                <RowDefinition Height="*"/>
+                                <!--Mini Graph-->
+                                <RowDefinition Height="100"/>
+                            </Grid.RowDefinitions>
+                            <!--Mini Graph A-->
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".7*"></ColumnDefinition>
+                                    <ColumnDefinition Width=".3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="25, 10">
+                                    <Path Width="25" Height="25" Stretch="Fill" Fill="{StaticResource PrimaryLightColorBrush}" Data="F1 M 38,3.16666C 57.2379,3.16666 72.8333,18.7621 72.8333,38C 72.8333,57.2379 57.2379,72.8333 38,72.8333C 18.7621,72.8333 3.16667,57.2379 3.16667,38C 3.16667,18.7621 18.7621,3.16666 38,3.16666 Z M 52.252,18.9974L 36.4164,18.9974L 23.75,39.5833L 34.8333,39.5833L 25.3316,60.1667L 50.6667,34.8333L 38,34.8333L 52.252,18.9974 Z "/>
+                                    <StackPanel Margin="10, 0">
+                                        <TextBlock FontSize="16" Text="{Binding Current_GraphName}" Foreground="{StaticResource GreyDarkColorBrush}"/>
+                                        <TextBlock FontSize="16" Foreground="{StaticResource GreyDarkColorBrush}">03.24.2013</TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                                <lvc:CartesianChart Grid.Row="1"
+                                                    
+                                                    DisableAnimations="True"
+                                                    Hoverable="False" 
+                                                    DataTooltip="{x:Null}" 
+                                                    Grid.Column="0" 
+                                                    Grid.ColumnSpan="2" 
+                                                    Margin="0,0,20,-0.2" 
+                                                    Grid.RowSpan="2">
+                                    <lvc:CartesianChart.Series>
+                                        <lvc:LineSeries Values="{Binding CurrentMiniValues}" 
+                                                Stroke="#FFF2CD21" 
+                                                LineSmoothness="1" 
+                                                StrokeThickness="3">
+                                            <lvc:LineSeries.Fill>
+                                                <SolidColorBrush Color="Transparent" Opacity="0.15"/>
+                                            </lvc:LineSeries.Fill>
+                                        </lvc:LineSeries>
+                                    </lvc:CartesianChart.Series>
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis MinValue="{Binding MiniFrom}" 
+                                          Foreground="{StaticResource GreyDarkColorBrush}" 
+                                          Title="Seconds"
+                                          MaxValue="{Binding MiniTo}" 
+                                          Separator="{x:Static lvc:DefaultAxes.CleanSeparator}">
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisX>
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis 
+                                          MinValue="0"
+                                          Foreground="{StaticResource GreyDarkColorBrush}" 
+                                          Title="Respiration">
+                                            <lvc:Axis.Sections>
+                                                <lvc:AxisSection Value="{Binding FillMin}" SectionWidth="{Binding FillWidth}" Label="Great">
+                                                    <lvc:AxisSection.Fill>
+                                                        <SolidColorBrush Color="#FF89ED40" Opacity=".4"></SolidColorBrush>
+                                                    </lvc:AxisSection.Fill>
+                                                </lvc:AxisSection>
+                                            </lvc:Axis.Sections>
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisY>
+                                </lvc:CartesianChart>
+                            </Grid>
+                            <!--Button Switch-->
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="ButtonPrevious" 
+                                        Style="{StaticResource PreviousButton}"  
+                                        Content="Next" 
+                                        Click="ButtonPrevious_Click" 
+                                        Grid.Column="0" 
+                                        HorizontalAlignment="Center"
+                                        Width="70"
+                                        Height="70"/>
+                                <Button x:Name="ButtonNext" 
+                                        Style="{StaticResource NextButton}"
+                                        Click="ButtonNext_Click" 
+                                        Grid.Column="1" 
+                                        HorizontalAlignment="Center"
+                                        Width="70"
+                                        Height="70"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!--Tracker Graph-->
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".7*"></ColumnDefinition>
+                            <ColumnDefinition Width=".3*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="25, 10">
+                            <Path Width="25" Height="25" Stretch="Fill" Fill="{StaticResource PrimaryLightColorBrush}" Data="F1 M 38,3.16666C 57.2379,3.16666 72.8333,18.7621 72.8333,38C 72.8333,57.2379 57.2379,72.8333 38,72.8333C 18.7621,72.8333 3.16667,57.2379 3.16667,38C 3.16667,18.7621 18.7621,3.16666 38,3.16666 Z M 52.252,18.9974L 36.4164,18.9974L 23.75,39.5833L 34.8333,39.5833L 25.3316,60.1667L 50.6667,34.8333L 38,34.8333L 52.252,18.9974 Z "/>
+                            <StackPanel Margin="10, 0">
+                                <TextBlock FontSize="22" Foreground="{StaticResource GreyDarkColorBrush}">Main Graph</TextBlock>
+                                <Grid Width="400">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock  FontSize="14" Foreground="{StaticResource GreyDarkColorBrush}" Text="Respiration Min: "/>
+                                        <TextBlock  FontSize="14" Foreground="{StaticResource GreyDarkColorBrush}" Text="{Binding PatientMin}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <TextBlock  FontSize="14" Foreground="{StaticResource GreyDarkColorBrush}" Text="Respiration Max: "/>
+                                        <TextBlock  FontSize="14" Foreground="{StaticResource GreyDarkColorBrush}" Text="{Binding PatientMax}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                        <lvc:CartesianChart Grid.Row="1" 
+                                            Hoverable="False" ScrollMode="X" 
+                                            ScrollHorizontalFrom="{Binding From, Mode=TwoWay}"
+                                            ScrollHorizontalTo="{Binding To, Mode=TwoWay}" 
+                                            ScrollBarFill="#1EFFFFFF"
+                                            DataTooltip="{x:Null}" 
+                                            Grid.Column="0" 
+                                            Grid.ColumnSpan="2" 
+                                            Margin="0,0,20,-0.2" 
+                                            Grid.RowSpan="2" AnimationsSpeed="0:0:0.20">
+                            <lvc:CartesianChart.Series>
+                                <lvc:LineSeries Values="{Binding Values}" 
+                                                Stroke="{Binding CurrentStroke}" 
+                                                LineSmoothness="1" 
+                                                StrokeThickness="3"
+                                                ScalesYAt="0">
+                                    <lvc:LineSeries.Fill>
+                                        <SolidColorBrush Color="Transparent" Opacity="0.15"/>
+                                    </lvc:LineSeries.Fill>
+                                </lvc:LineSeries>
+
+                                <lvc:LineSeries Values="{Binding HiddenValues}" 
+                                                Stroke="{Binding CurrentHiddenStroke}" 
+                                                LineSmoothness="1" 
+                                                StrokeThickness="3"
+                                                ScalesYAt="0">
+                                    <lvc:LineSeries.Fill>
+                                        <SolidColorBrush Color="Transparent" Opacity="0.15"/>
+                                    </lvc:LineSeries.Fill>
+                                </lvc:LineSeries>
+
+                            </lvc:CartesianChart.Series>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis MinValue="{Binding From}" 
+                                          Foreground="{StaticResource GreyDarkColorBrush}" 
+                                          Title="Seconds"
+                                          MaxValue="{Binding To}" 
+                                          Separator="{x:Static lvc:DefaultAxes.CleanSeparator}">
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis MinValue="0"
+                                          Foreground="{StaticResource GreyDarkColorBrush}" 
+                                          Title="Respiration">
+                                    <lvc:Axis.Sections>
+                                        <lvc:AxisSection Value="{Binding FillMin}" SectionWidth="{Binding FillWidth}" Label="Great">
+                                            <lvc:AxisSection.Fill>
+                                                <SolidColorBrush Color="#FF89ED40" Opacity=".4"></SolidColorBrush>
+                                            </lvc:AxisSection.Fill>
+                                        </lvc:AxisSection>
+                                    </lvc:Axis.Sections>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+            <!--Bottom Content-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <!--Port Info-->
+                    <ColumnDefinition Width="*"/>
+                    <!--Patient Data-->
+                    <ColumnDefinition Width="*"/>
+                    <!--Save Interaction-->
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!--Port Info-->
+                <Border Height="150" Grid.Column="0"
+                        Margin="30" 
+                        Background="{StaticResource GreyDarkColorBrush}" 
+                        CornerRadius="10"
+                        Grid.Row="0">
+                    <Grid  Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{StaticResource BackgroundVeryLightBrush}" 
+                                   Text="Select Device COM" 
+                                   FontSize="{StaticResource FontSizeRegular}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="ArduinoComboBox"
+                                      Text="{Binding CurrentPort}"
+                                      ItemsSource="{Binding Ports}"
+                                      Height="30" 
+                                      Width="170"
+                                      HorizontalAlignment="Center"
+                                      Grid.Column="0"
+                                      BorderBrush="Transparent"
+                                      Background="{StaticResource BackgroundVeryLightBrush}"
+                                      Foreground="{StaticResource GreyDarkColorBrush}"/>
+                            <Button Grid.Column="1"
+                                    x:Name="GoButton"
+                                    Click="GoButton_Click"
+                                    Style="{StaticResource RefreshPort}"
+                                    Width="20"
+                                    Margin="0 0 10 0"
+                                    VerticalAlignment="Center"
+                                    Height="20"/>
+                        </Grid>
+
+                        <Button Grid.Row="2"
+                                Height="30"
+                                Width="140"
+                                Content="START"
+                                Style="{StaticResource GoButton}"
+                                HorizontalAlignment="Center"
+                                Click="StartGraph_Click"
+                                VerticalAlignment="Center"
+                                x:Name="StartGraph"
+                                FontSize="15"/>
+
+                        <Button Grid.Row="2"
+                                Height="30"
+                                Width="140"
+                                Content="STOP"
+                                Style="{StaticResource GoButton}"
+                                HorizontalAlignment="Center"
+                                Click="StopGraph_Click"
+                                VerticalAlignment="Center"
+                                x:Name="StopGraph"
+                                Visibility="Hidden"
+                                FontSize="15"/>
+                    </Grid>
+                </Border>
+                <!--Patient Data-->
+                <Border Height="150" 
+                        Grid.Column="1"
+                        Margin="30" 
+                        Background="{StaticResource GreyDarkColorBrush}" 
+                        CornerRadius="10"
+                        Grid.Row="1">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{StaticResource BackgroundVeryLightBrush}" 
+                                           Text="{Binding PatientName}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource LatoRegular}"
+                                           Grid.Row="0"
+                                           FontSize="{StaticResource FontSizeRegular}"/>
+                        <TextBlock Foreground="{StaticResource BackgroundVeryLightBrush}" 
+                                           Text="{Binding PatientID}" 
+                                           FontFamily="{StaticResource LatoRegular}"
+                                           Grid.Row="1"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="{StaticResource FontSizeRegular}"/>
+                        <TextBlock Foreground="{StaticResource BackgroundVeryLightBrush}" 
+                                           Text="{Binding PatientGender}" 
+                                           FontFamily="{StaticResource LatoRegular}"
+                                           Grid.Row="2"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="{StaticResource FontSizeRegular}"/>
+                        <TextBlock Foreground="{StaticResource BackgroundVeryLightBrush}" 
+                                           Text="{Binding PatientAge}" 
+                                           FontFamily="{StaticResource LatoRegular}"
+                                           Grid.Row="3"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="{StaticResource FontSizeRegular}"/>
+                    </Grid>
+                </Border>
+                <!--Save Interaction-->
+                <Border Height="150" 
+                        Margin="30" 
+                        Background="{StaticResource GreyDarkColorBrush}" 
+                        CornerRadius="10"
+                        Grid.Column="2"
+                        Padding="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{StaticResource BackgroundVeryLightBrush}" 
+                                   Text="Save Patient Data" 
+                                   Grid.Row="0"
+                                   FontSize="25"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                        <Button Grid.Row="1"
+                            local:IsBusyProperty.Value="{Binding SaveIsRunning}"
+                            Command="{Binding SaveCommand}"
+                                Click="Button_Save_Click"
+                            Height="40"
+                            Width="150"
+                            HorizontalAlignment="Center"
+                            Content="SAVE"
+                            FontSize="20"
+                            Style="{StaticResource SubmitButton}"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</local:BasePage>
