@@ -123,13 +123,14 @@ void setup() {
 
   pinMode(SHT_LOX1, OUTPUT);
   pinMode(SHT_LOX2, OUTPUT);
+  pinMode(SHT_LOX3, OUTPUT);
 
 
-  
+  digitalWrite(SHT_LOX3, LOW);
   digitalWrite(SHT_LOX1, LOW);
   digitalWrite(SHT_LOX2, LOW);
 
-   pinMode(LED, OUTPUT);
+  pinMode(LED, OUTPUT);
   pinMode(pushButton, INPUT_PULLUP);
   setID();
 }
