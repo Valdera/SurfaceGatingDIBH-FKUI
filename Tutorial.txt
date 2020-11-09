@@ -1,0 +1,21 @@
+1. buka folder udahdibuild/bin/
+2. buka aplikasi Surface Gating DIBH (Pastikan ada koneksi internet)
+4. Tombol Patient untuk login, Tombol Data untuk lihat database, Tombol setting untuk setting database
+
+# Untuk merekam patient
+1. Klik tombol patient
+2. masukkan id patient jika sudah ada patient, klik tombol create new patient untuk membuat patient
+3. Jika sudah ada tampilan graph, pilih com yang terdapat arduino, tekan tombol start
+4. Jika ingin merekam respirasi panjang klik push button kemudian jika sudah selesai klik lagi push button dan tekan save
+5. Pastikan graph tidak berjalan ketika ingin berpindah ke menu lain (Jika masih berjalan klik tombol stop)
+
+# Untuk melihat data patient
+1. Klik data
+
+# Untuk edit database Firebase
+1. Ke https://firebase.google.com/
+2. Login ke akun google
+gmail: surfacegating@gmail.com
+password : rscm12345
+3. klik go to console
+4. klik realtime database

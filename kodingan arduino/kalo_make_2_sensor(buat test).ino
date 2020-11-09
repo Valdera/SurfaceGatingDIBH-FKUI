@@ -86,6 +86,7 @@ void read_dual_sensors() {
     measure_2 = measure2.RangeMilliMeter;
     rate = rate + measure_2;
     addValue(measure_2);
+    rate = rate + measure_2+ 3;
     addValue(measure_2 + 3);
 
   

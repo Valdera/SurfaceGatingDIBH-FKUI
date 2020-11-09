@@ -193,21 +193,26 @@ namespace SurfaceGatingDIBH {
                     newData.Columns.Add("MinGraph");
                     newData.Columns.Add("RateGraph");
 
-                    foreach (KeyValuePair<string, Patient> entry in elist) {
-                        DataRow row = newData.NewRow();
-                        row["ID"] = entry.Value.Id;
-                        row["Name"] = entry.Value.Name;
-                        row["Gender"] = entry.Value.Gender;
-                        row["Age"] = entry.Value.Age;
-                        row["MaxGraph"] = entry.Value.MaxGraph;
-                        row["MinGraph"] = entry.Value.MinGraph;
-                        row["RateGraph"] = entry.Value.RateGraph;
-                        newData.Rows.Add(row);
+                    if(!(elist == null)) {
+                        foreach (KeyValuePair<string, Patient> entry in elist) {
+                            DataRow row = newData.NewRow();
+                            row["ID"] = entry.Value.Id;
+                            row["Name"] = entry.Value.Name;
+                            row["Gender"] = entry.Value.Gender;
+                            row["Age"] = entry.Value.Age;
+                            row["MaxGraph"] = entry.Value.MaxGraph;
+                            row["MinGraph"] = entry.Value.MinGraph;
+                            row["RateGraph"] = entry.Value.RateGraph;
+                            newData.Rows.Add(row);
+                        }
+
+                        DatabasePatient.PatientData = newData;
+
+                        MainWindow.ChangePage("patient");
+                    } else {
+                        MessageBox.Show("Database Is Empty");
                     }
-
-                    DatabasePatient.PatientData = newData;
-
-                    MainWindow.ChangePage("patient");
+                   
                 }
                 catch (Exception ex) {
                     MessageBox.Show("A handled exception just occurred: " + ex.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);

@@ -34,27 +34,35 @@ namespace SurfaceGatingDIBH {
         public async Task Login(object parameter) {
             await RunCommand(() => this.LoginIsRunning, async () => {
                 try {
-                    
+
                     FirebaseConfiguration.client = new FireSharp.FirebaseClient(FirebaseConfiguration.config);
 
                     FirebaseResponse response = await FirebaseConfiguration.client.GetAsync("Patient/" + PatientID);
                     Patient result = response.ResultAs<Patient>();
-                    if (!(result.Name == null)) {
 
-                        CurrentPatient.Id = result.Id;
-                        CurrentPatient.Name = result.Name;
-                        CurrentPatient.Age = result.Age;
-                        CurrentPatient.Gender = result.Gender;
-                        CurrentPatient.MaxGraph = result.MaxGraph;
-                        CurrentPatient.MinGraph = result.MinGraph;
-                        CurrentPatient.RateGraph = result.RateGraph;
+                    if (!(result == null)) {
+
+                        if (!(result.Name == null)) {
+
+                            CurrentPatient.Id = result.Id;
+                            CurrentPatient.Name = result.Name;
+                            CurrentPatient.Age = result.Age;
+                            CurrentPatient.Gender = result.Gender;
+                            CurrentPatient.MaxGraph = result.MaxGraph;
+                            CurrentPatient.MinGraph = result.MinGraph;
+                            CurrentPatient.RateGraph = result.RateGraph;
 
 
-                        MainWindow.ChangePage("tracker");
+                            MainWindow.ChangePage("tracker");
+                        }
+                        else {
+                            MessageBox.Show("Incorrect ID");
+                        }
+                    } else {
+                        MessageBox.Show("Check your connection");
                     }
-                    else {
-                        MessageBox.Show("Incorrect ID");
-                    }
+
+
 
                 }
                 catch (Exception ex) {

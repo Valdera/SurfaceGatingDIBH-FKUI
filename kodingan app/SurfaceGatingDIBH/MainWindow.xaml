@@ -11,7 +11,7 @@
         x:Name="AppWindow"
         Icon="Images/Logo/medical-logo.png"
         WindowStartupLocation="CenterScreen"
-        Title="SurfaceGatingDIBH Project RSCM-FK" Height="800" Width="1400">
+        Title="SurfaceGatingDIBH" Height="700" Width="1200">
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">

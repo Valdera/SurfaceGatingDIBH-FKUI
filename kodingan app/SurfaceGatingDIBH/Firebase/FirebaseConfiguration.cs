@@ -13,9 +13,9 @@ namespace SurfaceGatingDIBH {
 
         public static IFirebaseClient client;
 
-        public static string AuthSecretCode { get; set; } = "3hlRhRfbJid4AJluwZWaa1UruYbWG8VwTblBhQWh";
+        public static string AuthSecretCode { get; set; } = "J0EcytuYaoqwhDOzeKcDL70oQ8SMd2GfV7IG3ix9";
 
-        public static string BasePathURL { get; set; } = "https://surfacegatingdibh.firebaseio.com/";
+        public static string BasePathURL { get; set; } = "https://surfacegatingdibh-15fd5.firebaseio.com/";
 
         public static IFirebaseConfig config = new FirebaseConfig {
             AuthSecret = AuthSecretCode ,

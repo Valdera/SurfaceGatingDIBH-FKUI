@@ -105,7 +105,7 @@ void read_dual_sensors() {
     addValue(measure_2);
 
     measure_3 = measure3.RangeMilliMeter;
-    rate = rate + measure_2;
+    rate = rate + measure_3;
     addValue(measure_3);
 
   

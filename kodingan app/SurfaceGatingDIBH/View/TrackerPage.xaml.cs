@@ -69,7 +69,11 @@ namespace SurfaceGatingDIBH {
         /// </summary>
         public TrackerPage() {
             InitializeComponent();
+            if (!(mSerialPort == null)) {
+                mSerialPort.Close();
+                mSerialPort.Dispose();
 
+            }
             model = new TrackerViewModel();
             DataContext = model;
 
@@ -83,17 +87,32 @@ namespace SurfaceGatingDIBH {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void StartGraph_Click(object sender, RoutedEventArgs e) {
-            mSerialPort = new SerialPort(ArduinoComboBox.Text);
-            mSerialPort.Close();
-            mSerialPort.Dispose();
-            mSerialPort.Open();
-            if (mAlreadyCreated == false) {
-                masterthread = new Thread(Main);
-                masterthread.Start();
-                mAlreadyCreated = true;
+            try {
+            if (!(mSerialPort == null)) {
+                mSerialPort.Close();
+                mSerialPort.Dispose();
+
             }
-            mStopThread = false;
-            StartGraph.Visibility = Visibility.Hidden;
+            mSerialPort = new SerialPort(ArduinoComboBox.Text);
+            Thread.Sleep(100);
+            if (!mSerialPort.IsOpen) {
+                mSerialPort.Open();
+            }
+                if (mAlreadyCreated == false) {
+                    masterthread = new Thread(Main);
+                    masterthread.Start();
+                    mAlreadyCreated = true;
+                }
+                mStopThread = false;
+                StartGraph.Visibility = Visibility.Hidden;
+                StopGraph.Visibility = Visibility.Visible;
+            }
+            catch (System.UnauthorizedAccessException) {
+                MessageBox.Show("Restart the Application. Dont Forget to press stop after tracking");
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Port Error");
+            }
         }
 
         /// <summary>
@@ -103,7 +122,11 @@ namespace SurfaceGatingDIBH {
         /// <param name="e"></param>
         private void StopGraph_Click(object sender, RoutedEventArgs e) {
             mStopThread = true;
-            mSerialPort.Close();
+            if (!(mSerialPort == null)) {
+                mSerialPort.Close();
+                mSerialPort.Dispose();
+
+            }
             StartGraph.Visibility = Visibility.Visible;
             StopGraph.Visibility = Visibility.Hidden;
         }
@@ -181,9 +204,7 @@ namespace SurfaceGatingDIBH {
                                     model.HiddenList.Add(Convert.ToInt32(values[3]));
                                     model.PatientMax = Convert.ToInt32(model.HiddenValues.Max());
                                     model.PatientMin = model.HiddenList.Min();
-                                    model.PatientRate = Convert.ToInt32(model.HiddenValues.Average());
-                                    model.From += 1;
-                                    model.To += 1;
+                                    model.PatientRate = Convert.ToInt32(model.HiddenList.Average());
                                 }
                                 else {
                                     model.HiddenValues.Add(double.NaN);
