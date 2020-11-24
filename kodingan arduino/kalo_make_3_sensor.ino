@@ -53,8 +53,8 @@ void setID() {
   if(!lox1.begin(LOX1_ADDRESS)) {
     while(1);
   }
+  
   delay(10);
-
   // activating LOX2
   digitalWrite(SHT_LOX2, HIGH);
   delay(10);
@@ -63,9 +63,11 @@ void setID() {
   if(!lox2.begin(LOX2_ADDRESS)) {
     while(1);
   }
-
+  
+  delay(10);
   digitalWrite(SHT_LOX3, HIGH);
-
+  delay(10);
+  
  //initing LOX2
   if(!lox3.begin(LOX3_ADDRESS)) {
     while(1);
