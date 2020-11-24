@@ -1,4 +1,8 @@
 #include <Adafruit_VL53L0X.h>
+/*
+  Install this library first in arduino: https://github.com/adafruit/Adafruit_VL53L0X
+*/
+
 // address we will assign if dual sensor is present
 #define LOX1_ADDRESS 0x30
 #define LOX2_ADDRESS 0x31
