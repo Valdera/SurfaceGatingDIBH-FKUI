@@ -71,7 +71,7 @@ void read_dual_sensors() {
 
   state = digitalRead(pushButton);
   if(state == LOW){
-    delay(10);
+    delay(1);
     pusher = 1;
     digitalWrite(LED, HIGH);
     if(state == LOW ){
