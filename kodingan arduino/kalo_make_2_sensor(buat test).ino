@@ -30,11 +30,11 @@ void setID() {
   // all reset
   digitalWrite(SHT_LOX1, LOW);    
   digitalWrite(SHT_LOX2, LOW);
-  delay(10);
+  delay(5);
   // all unreset
   digitalWrite(SHT_LOX1, HIGH);
   digitalWrite(SHT_LOX2, HIGH);
-  delay(10);
+  delay(5);
 
   // activating LOX1 and reseting LOX2
   digitalWrite(SHT_LOX1, HIGH);
@@ -44,11 +44,11 @@ void setID() {
   if(!lox1.begin(LOX1_ADDRESS)) {
     while(1);
   }
-  delay(10);
+  delay(5);
 
   // activating LOX2
   digitalWrite(SHT_LOX2, HIGH);
-  delay(10);
+  delay(5);
 
   //initing LOX2
   if(!lox2.begin(LOX2_ADDRESS)) {
@@ -121,5 +121,5 @@ void setup() {
 
 void loop() {
   read_dual_sensors();
-  delay(1000);
+  delay(50);
 }
