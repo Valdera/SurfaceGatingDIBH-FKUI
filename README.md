@@ -1,3 +1,2 @@
 # SurfaceGatingDIBH-FKUI
-langsung buka aja yang udah di build
-width app nya kegedean, tinggal di resize aja
+Desktop Application for graph respiration sensor created with C# and WPF.
